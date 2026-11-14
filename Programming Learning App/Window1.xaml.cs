@@ -12,14 +12,38 @@ using System.Windows.Shapes;
 
 namespace Programming_Learning_App
 {
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
     public partial class Window1 : Window
     {
+        public event EventHandler<string> MessageSentToGui;
+
         public Window1()
         {
             InitializeComponent();
+        }
+
+        private void BasicButtonClick(object sender, RoutedEventArgs e)
+        {
+            MessageSentToGui?.Invoke(this, "LOAD_BASIC");
+        }
+
+        private void AdvancedButtonClick(object sender, RoutedEventArgs e)
+        {
+            MessageSentToGui?.Invoke(this, "LOAD_ADVANCED");
+        }
+
+        private void ExpertButtonClick(object sender, RoutedEventArgs e)
+        {
+            MessageSentToGui?.Invoke(this, "LOAD_EXPERT");
+        }
+
+        private void RunButtonClick(object sender, RoutedEventArgs e)
+        {
+            MessageSentToGui?.Invoke(this, "RUN");
+        }
+
+        private void MetricButtonClick(object sender, RoutedEventArgs e)
+        {
+            MessageSentToGui?.Invoke(this, "METRICS");
         }
     }
 }
