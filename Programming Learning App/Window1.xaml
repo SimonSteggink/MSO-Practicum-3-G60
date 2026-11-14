@@ -26,9 +26,15 @@
             </Menu>
         </StackPanel>
 
-        <Border Grid.Row="1" BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="White" Padding="10" Margin="0,0,0,15">
-            <TextBox Text="" Foreground="Black"/>
-        </Border>
+        <UniformGrid Grid.Row="1" Rows="1" Columns="2">
+            <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="White" Padding="10" Margin="0,0,0,15">
+                <TextBox Text="" Foreground="Black"/>
+            </Border>
+
+            <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="White" Padding="10" Margin="0,0,0,15">
+                
+            </Border>
+        </UniformGrid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,15">
             <Button Content="Run" Width="80" Height="32" Background="#28A745" Foreground="White" FontWeight="Bold" BorderBrush="Transparent" Margin="0,0,10,0"/>

@@ -15,20 +15,8 @@ public class ConsoleUI
         examples = new ExampleProgramProvider(parser);
     }
 
-    [STAThread]
     public void Run()
     {
-        Thread wpfThread = new Thread(() =>
-        {
-            var app = new Application();
-            var window = new Window1();
-            app.Run(window);
-        });
-
-        wpfThread.SetApartmentState(ApartmentState.STA);
-        wpfThread.Start();
-        wpfThread.Join();
-
         while (current == null)
         {
             Console.WriteLine("Choose a program:");
