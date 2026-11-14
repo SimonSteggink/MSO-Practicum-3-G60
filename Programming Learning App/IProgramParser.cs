@@ -70,6 +70,17 @@ public class TextProgramParser : IProgramParser
 
                 commands.Add(new RepeatCommand(count, repeatCommands));
             }
+
+            else if (commandsText[0] == "RepeatUntil")
+            {
+                string conditionString = commandsText[1];
+                Condition condition = Condition.WallAhead;
+                if (conditionString == "GridEdge") { condition = Condition.GridEdge; }
+
+                List<ICommand> repeatCommands = ParseCommands(text, ref index, indentation + 1);
+
+                commands.Add(new RepeatUntilCommand(condition, repeatCommands));
+            }
         }
         return commands;
     }

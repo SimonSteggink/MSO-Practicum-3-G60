@@ -28,6 +28,12 @@ public class StatsCalculator
                 stats.MaxNesting = Math.Max(stats.MaxNesting, depth + 1);
                 Visit(repeat.Body, depth + 1, ref stats);
             }
+            else if (command is RepeatUntilCommand repeatUntil)
+            {
+                stats.Repeats++;
+                stats.MaxNesting = Math.Max(stats.MaxNesting, depth + 1);
+                Visit(repeatUntil.Body, depth + 1, ref stats);
+            }
         }
     }
 }

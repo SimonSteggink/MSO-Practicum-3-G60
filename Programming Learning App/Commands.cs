@@ -71,3 +71,29 @@ public class RepeatCommand : ICommand
         }
     }
 }
+
+public enum Condition {
+    WallAhead,
+    GridEdge
+}
+
+public class RepeatUntilCommand : ICommand
+{
+    public Condition condition;
+    public List<ICommand> Body;
+
+    public RepeatUntilCommand(Condition cond, List<ICommand> commands)
+    {
+        condition = cond;
+        Body = commands;
+    }
+
+    public void Execute(ExecutionContext context)
+    {
+        // TODO: Condition checking
+        for (int j = 0; j < Body.Count; j++)
+        {
+            Body[j].Execute(context);
+        }
+    }
+}
