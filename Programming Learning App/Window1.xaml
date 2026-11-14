@@ -7,42 +7,42 @@ xmlns:local="clr-namespace:Programming_Learning_App"
 mc:Ignorable="d"
 Title="Window1" Height="450" Width="800" >
 <Grid Margin="15" >
-<Grid.RowDefinitions >
-<RowDefinition Height="Auto"/>
-<RowDefinition Height="*"/>
-<RowDefinition Height="Auto"/>
-<RowDefinition Height="80"/>
-</Grid.RowDefinitions >
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="80"/>
+    </Grid.RowDefinitions >
 
-<StackPanel Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,15" >
-<Menu Background="#007ACC" >
-<MenuItem Header="Load program" Background="#007ACC" Foreground="White" Padding="10,6" FontSize="14" >
-<MenuItem Header="Basic" Foreground="Black" Click="BasicButtonClick"/>
-<MenuItem Header="Advanced" Foreground="Black" Click="AdvancedButtonClick"/>
-<MenuItem Header="Expert" Foreground="Black" Click="ExpertButtonClick"/>
-<Separator/>
-<MenuItem Header="From file..." Foreground="Black"/>
-</MenuItem >
-</Menu >
-</StackPanel >
+    <StackPanel Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,15" >
+        <Menu Background="#007ACC" >
+            <MenuItem Header="Load program" Background="#007ACC" Foreground="White" Padding="10,6" FontSize="14" >
+                <MenuItem Header="Basic" Foreground="Black" Click="BasicButtonClick"/>
+                <MenuItem Header="Advanced" Foreground="Black" Click="AdvancedButtonClick"/>
+                <MenuItem Header="Expert" Foreground="Black" Click="ExpertButtonClick"/>
+                <Separator/>
+                <MenuItem Header="From file..." Foreground="Black"/>
+            </MenuItem >
+        </Menu >
+    </StackPanel >
 
-<UniformGrid Grid.Row="1" Rows="1" Columns="2" >
-<Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="White" Padding="10" Margin="0,0,0,15" >
-<TextBox Text="" Foreground="Black"/>
-</Border >
+    <UniformGrid Grid.Row="1" Rows="1" Columns="2" >
+        <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="White" Padding="10" Margin="0,0,0,15" >
+            <TextBox Text="" Foreground="Black"/>
+        </Border >
 
-<Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="White" Padding="10" Margin="0,0,0,15" >
+        <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="White" Padding="10" Margin="0,0,0,15" >
 
-</Border >
-</UniformGrid >
+        </Border >
+    </UniformGrid >
 
-<StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,15" >
-<Button Content="Run" Width="80" Height="32" Background="#28A745" Foreground="White" FontWeight="Bold" BorderBrush="Transparent" Margin="0,0,10,0" Click="RunButtonClick"/>
-<Button Content="Metrics" Width="80" Height="32" Background="#007BFF" Foreground="White" FontWeight="Bold" BorderBrush="Transparent" Click="MetricButtonClick"/>
-</StackPanel >
+    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,15" >
+            <Button Content="Run" Width="80" Height="32" Background="#28A745" Foreground="White" FontWeight="Bold" BorderBrush="Transparent" Margin="0,0,10,0" Click="RunButtonClick"/>
+            <Button Content="Metrics" Width="80" Height="32" Background="#007BFF" Foreground="White" FontWeight="Bold" BorderBrush="Transparent" Click="MetricButtonClick"/>
+    </StackPanel >
 
-<Border Grid.Row="3" BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="#FAFAFA" Padding="8" >
-<TextBox Text="&lt;output&gt;" Foreground="#666666" Background="Transparent" BorderThickness="0" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"/>
-</Border >
+    <Border Grid.Row="3" BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="#FAFAFA" Padding="8" >
+        <TextBox x:Name="OutputTextBox" Text="&lt;output&gt;" Foreground="#666666" Background="Transparent" BorderThickness="0" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"/>
+    </Border >
 </Grid >
 </Window >

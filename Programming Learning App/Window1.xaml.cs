@@ -45,5 +45,10 @@ namespace Programming_Learning_App
         {
             MessageSentToGui?.Invoke(this, "METRICS");
         }
+
+        public void SetOutput(string text) 
+        {
+            OutputTextBox.Text = text;
+        }
     }
 }

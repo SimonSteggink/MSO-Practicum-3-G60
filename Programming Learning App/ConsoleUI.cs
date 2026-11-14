@@ -62,12 +62,12 @@ public class ConsoleUI : CommonUI
             }
             else if (input == "1")
             {
-                Execute();
+                Console.WriteLine(Execute());
                 break;
             }
             else if (input == "2")
             {
-                ShowMetrics();
+                Console.WriteLine(ShowMetrics());
                 break;
             }
         }

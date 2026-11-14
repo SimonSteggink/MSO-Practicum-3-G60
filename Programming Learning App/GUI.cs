@@ -2,6 +2,7 @@
 
 using System.IO;
 using System.Windows;
+using System.Windows.Threading;
 
 public class GUI : CommonUI
 {
@@ -19,21 +20,21 @@ public class GUI : CommonUI
                 {
                     BasicButtonClick();
                 }
-                if (command == "LOAD_ADVANCED")
+                else if (command == "LOAD_ADVANCED")
                 {
                     AdvancedButtonClick();
                 }
-                if (command == "LOAD_EXPERT")
+                else if (command == "LOAD_EXPERT")
                 {
                     ExpertButtonClick();
                 }
                 else if (command == "RUN")
                 {
-                    RunButtonClick();
+                    RunButtonClick(window);
                 }
                 else if (command == "METRICS")
                 {
-                    MetricButtonClick();
+                    MetricButtonClick(window);
                 }
             };
 
@@ -56,12 +57,12 @@ public class GUI : CommonUI
     {
         current = examples.Expert();
     }
-    private void RunButtonClick()
+    private void RunButtonClick(Window1 window)
     {
-        Execute();
+        window.SetOutput(Execute());
     }
-    private void MetricButtonClick()
+    private void MetricButtonClick(Window1 window)
     {
-        ShowMetrics();
+        window.SetOutput(ShowMetrics());
     }
 }

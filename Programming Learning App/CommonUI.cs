@@ -17,9 +17,9 @@ public abstract class CommonUI
 
     public abstract void Run();
 
-    protected void Execute()
+    protected string Execute()
     {
-        if (current == null) { return; }
+        if (current == null) { return ""; }
 
         ExecutionResult result = current!.Execute();
         string text = "";
@@ -34,8 +34,6 @@ public abstract class CommonUI
                 text += result.Trace[i] + ", ";
             }
         }
-
-        Console.WriteLine(text);
 
         string facingText = "";
         switch (result.FinalFacing)
@@ -54,14 +52,14 @@ public abstract class CommonUI
                 break;
         }
 
-        Console.WriteLine("End state (" + result.FinalPosition.X + "," + result.FinalPosition.Y + ") facing " + facingText + ".");
+        return text + "\n" + "End state (" + result.FinalPosition.X + "," + result.FinalPosition.Y + ") facing " + facingText + ".";
     }
 
-    protected void ShowMetrics()
+    protected string ShowMetrics()
     {
         ProgramStats result = stats.Calculate(current!);
-        Console.WriteLine("No. of commands: " + result.Commands);
-        Console.WriteLine("Max nesting: " + result.MaxNesting);
-        Console.WriteLine("No. of repeats: " + result.Repeats);
+        return "No. of commands: " + result.Commands + "\n" +
+               "Max nesting: " + result.MaxNesting + "\n" +
+               "No. of repeats: " + result.Repeats;
     }
 }
