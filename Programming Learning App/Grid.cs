@@ -8,9 +8,9 @@ public enum CellType {
 
 public class Grid
 {
-    int rows;
-    int columns;
-    CellType[,] grid;
+    public int rows;
+    public int columns;
+    public CellType[,] grid;
     
     public Grid(int rows, int columns, CellType[,] grid) 
     {

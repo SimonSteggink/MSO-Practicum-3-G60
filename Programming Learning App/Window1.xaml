@@ -33,6 +33,41 @@ Title="Window1" Height="450" Width="800" >
 
         <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="White" Padding="10" Margin="0,0,0,15" >
 
+            <ItemsControl Grid.Column="1" ItemsSource="{Binding Cells}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="{Binding worldGrid.rows, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                     Columns="{Binding worldGrid.columns, RelativeSource={RelativeSource AncestorType=ItemsControl}}"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                            <Border BorderBrush="Black" BorderThickness="10" Background="White" >
+                            <Grid>
+                                <Rectangle>
+                                    <Rectangle.Style>
+                                        <Style TargetType="Rectangle">
+                                            <Setter Property="Fill" Value="Transparent"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding}" Value="{x:Static local:CellType.Blocked}">
+                                                    <Setter Property="Fill" Value="Orange"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding}" Value="{x:Static local:CellType.Open}">
+                                                    <Setter Property="Fill" Value="White"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding}" Value="{x:Static local:CellType.Goal}">
+                                                    <Setter Property="Fill" Value="Green"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Rectangle.Style>
+                                </Rectangle>
+                            </Grid>
+                        </Border >
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
         </Border >
     </UniformGrid >
 
