@@ -1,1 +1,13 @@
 ﻿/Programming Learning App/Docs/
+
+# Build output
+bin/
+obj/
+
+# IDE user-specific files
+.vs/
+*.DotSettings.user
+*.user
+
+# Code metrics output
+*.Metrics.xml
