@@ -12,7 +12,7 @@ public abstract class CommonUI
 
     public CommonUI()
     {
-        examples = new ExampleProgramProvider(parser);
+        examples = new ExampleProgramProvider();
     }
 
     public abstract void Run();

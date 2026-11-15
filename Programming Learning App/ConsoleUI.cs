@@ -27,16 +27,16 @@ public class ConsoleUI : CommonUI
                 switch (input)
                 {
                     case "1":
-                        current = examples.Basic();
+                        current = parser.Parse(examples.Basic());
                         break;
                     case "2":
-                        current = examples.Advanced();
+                        current = parser.Parse(examples.Advanced());
                         break;
                     case "3":
-                        current = examples.Expert();
+                        current = parser.Parse(examples.Expert());
                         break;
                     case "4":
-                        current = examples.Random();
+                        current = parser.Parse(examples.Random());
                         break;
                     default:
                         current = parser.Parse(File.ReadAllText(input.Trim().Trim('"')));

@@ -36,6 +36,11 @@ namespace Programming_Learning_App
             MessageSentToGui?.Invoke(this, "LOAD_EXPERT");
         }
 
+        private void FileButtonClick(object sender, RoutedEventArgs e)
+        {
+            MessageSentToGui?.Invoke(this, "LOAD_FILE");
+        }
+
         private void RunButtonClick(object sender, RoutedEventArgs e)
         {
             MessageSentToGui?.Invoke(this, "RUN");
@@ -44,11 +49,6 @@ namespace Programming_Learning_App
         private void MetricButtonClick(object sender, RoutedEventArgs e)
         {
             MessageSentToGui?.Invoke(this, "METRICS");
-        }
-
-        public void SetOutput(string text) 
-        {
-            OutputTextBox.Text = text;
         }
     }
 }

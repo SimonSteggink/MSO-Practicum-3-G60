@@ -2,33 +2,29 @@
 
 using System.IO;
 
+// Returns the text of example programs, so the UI can both show and parse it
 public class ExampleProgramProvider
 {
-    private IProgramParser Parser;
     private Random rand;
 
-    public ExampleProgramProvider(IProgramParser parser)
+    public ExampleProgramProvider()
     {
-        Parser = parser;
         rand = new Random();
     }
 
-    public BlockProgram Basic() 
+    public string Basic()
     {
-        string fileContent = File.ReadAllText("UserPrograms/Basic.txt");
-        return Parser.Parse(fileContent);
+        return LoadRandomFrom("UserPrograms/Basic");
     }
-    public BlockProgram Advanced()
+    public string Advanced()
     {
-        string fileContent = File.ReadAllText("UserPrograms/Advanced.txt");
-        return Parser.Parse(fileContent);
+        return LoadRandomFrom("UserPrograms/Advanced");
     }
-    public BlockProgram Expert()
+    public string Expert()
     {
-        string fileContent = File.ReadAllText("UserPrograms/Expert.txt");
-        return Parser.Parse(fileContent);
+        return LoadRandomFrom("UserPrograms/Expert");
     }
-    public BlockProgram Random()
+    public string Random()
     {
         switch (rand.Next(3))
         {
@@ -39,5 +35,12 @@ public class ExampleProgramProvider
             default:
                 return Expert();
         }
+    }
+
+    // Each level has its own folder with several programs and we get a random one from any folder
+    private string LoadRandomFrom(string folder)
+    {
+        string[] files = Directory.GetFiles(folder, "*.txt");
+        return File.ReadAllText(files[rand.Next(files.Length)]);
     }
 }

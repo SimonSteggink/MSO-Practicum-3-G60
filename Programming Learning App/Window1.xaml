@@ -21,14 +21,14 @@ Title="Window1" Height="450" Width="800" >
                 <MenuItem Header="Advanced" Foreground="Black" Click="AdvancedButtonClick"/>
                 <MenuItem Header="Expert" Foreground="Black" Click="ExpertButtonClick"/>
                 <Separator/>
-                <MenuItem Header="From file..." Foreground="Black"/>
+                <MenuItem Header="From file..." Foreground="Black" Click="FileButtonClick"/>
             </MenuItem >
         </Menu >
     </StackPanel >
 
     <UniformGrid Grid.Row="1" Rows="1" Columns="2" >
         <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="White" Padding="10" Margin="0,0,0,15" >
-            <TextBox Text="" Foreground="Black"/>
+            <TextBox Text="{Binding ProgramText, UpdateSourceTrigger=PropertyChanged}" Foreground="Black" AcceptsReturn="True" AcceptsTab="True" FontFamily="Consolas" VerticalScrollBarVisibility="Auto"/>
         </Border >
 
         <Border BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="White" Padding="10" Margin="0,0,0,15" >
@@ -42,7 +42,7 @@ Title="Window1" Height="450" Width="800" >
     </StackPanel >
 
     <Border Grid.Row="3" BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="4" Background="#FAFAFA" Padding="8" >
-        <TextBox x:Name="OutputTextBox" Text="&lt;output&gt;" Foreground="#666666" Background="Transparent" BorderThickness="0" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"/>
+        <TextBox x:Name="OutputTextBox" Text="{Binding OutputText, Mode=OneWay}" Foreground="#666666" Background="Transparent" BorderThickness="0" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"/>
     </Border >
 </Grid >
 </Window >

@@ -2,10 +2,13 @@
 
 using System.IO;
 using System.Windows;
+using Microsoft.Win32;
 using System.Windows.Threading;
 
 public class GUI : CommonUI
 {
+    private MainViewModel viewModel = new MainViewModel();
+
     [STAThread]
     public override void Run()
     {
@@ -13,6 +16,7 @@ public class GUI : CommonUI
         {
             var app = new Application();
             var window = new Window1();
+            window.DataContext = viewModel;
 
             window.MessageSentToGui += (sender, command) =>
             {
@@ -28,13 +32,17 @@ public class GUI : CommonUI
                 {
                     ExpertButtonClick();
                 }
+                else if (command == "LOAD_FILE")
+                {
+                    FileButtonClick(window);
+                }
                 else if (command == "RUN")
                 {
-                    RunButtonClick(window);
+                    RunButtonClick();
                 }
                 else if (command == "METRICS")
                 {
-                    MetricButtonClick(window);
+                    MetricButtonClick();
                 }
             };
 
@@ -47,22 +55,48 @@ public class GUI : CommonUI
     }
     private void BasicButtonClick()
     {
-        current = examples.Basic();
+        LoadProgram(examples.Basic());
     }
     private void AdvancedButtonClick()
     {
-        current = examples.Advanced();
+        LoadProgram(examples.Advanced());
     }
     private void ExpertButtonClick()
     {
-        current = examples.Expert();
+        LoadProgram(examples.Expert());
     }
-    private void RunButtonClick(Window1 window)
+    private void FileButtonClick(Window1 window)
     {
-        window.SetOutput(Execute());
+        OpenFileDialog dialog = new OpenFileDialog();
+        dialog.Filter = "Program files (*.txt)|*.txt|All files (*.*)|*.*";
+
+        if (dialog.ShowDialog(window) != true)
+        {
+            return;
+        }
+
+        try
+        {
+            LoadProgram(File.ReadAllText(dialog.FileName));
+        }
+        catch (Exception e)
+        {
+            viewModel.OutputText = "Could not load program: " + e.Message;
+        }
     }
-    private void MetricButtonClick(Window1 window)
+    private void RunButtonClick()
     {
-        window.SetOutput(ShowMetrics());
+        viewModel.OutputText = Execute();
+    }
+    private void MetricButtonClick()
+    {
+        viewModel.OutputText = ShowMetrics();
+    }
+
+    // Shows the program text in the editor and parses it into the current program
+    private void LoadProgram(string text)
+    {
+        viewModel.ProgramText = text;
+        current = parser.Parse(text);
     }
 }
