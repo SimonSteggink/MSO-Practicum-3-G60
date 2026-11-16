@@ -9,6 +9,7 @@ public abstract class CommonUI
     protected IProgramParser parser = new TextProgramParser();
     protected ExampleProgramProvider examples;
     protected StatsCalculator stats = new StatsCalculator();
+    protected Grid? grid;
 
     public CommonUI()
     {
@@ -21,7 +22,7 @@ public abstract class CommonUI
     {
         if (current == null) { return ""; }
 
-        ExecutionResult result = current!.Execute();
+        ExecutionResult result = current!.Execute(grid);
         string text = "";
         for (int i = 0; i < result.Trace.Count; i++)
         {

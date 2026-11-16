@@ -90,10 +90,30 @@ public class RepeatUntilCommand : ICommand
 
     public void Execute(ExecutionContext context)
     {
-        // TODO: Condition checking
-        for (int j = 0; j < Body.Count; j++)
+        // Capped so a missing grid (condition always false) can't loop forever
+        for (int i = 0; i < 1000 && !IsMet(context); i++)
         {
-            Body[j].Execute(context);
+            for (int j = 0; j < Body.Count; j++)
+            {
+                Body[j].Execute(context);
+            }
         }
+    }
+
+    private bool IsMet(ExecutionContext context)
+    {
+        Grid? grid = context.Grid;
+        if (grid == null) { return false; }
+
+        Position next = context.Character.Position;
+        if (context.Character.Facing == Direction.North) { next.Y--; }
+        if (context.Character.Facing == Direction.East) { next.X++; }
+        if (context.Character.Facing == Direction.South) { next.Y++; }
+        if (context.Character.Facing == Direction.West) { next.X--; }
+
+        bool inside = next.X >= 0 && next.X < grid.columns && next.Y >= 0 && next.Y < grid.rows;
+
+        if (condition == Condition.GridEdge) { return !inside; }
+        return inside && grid.grid[next.Y, next.X] == CellType.Blocked;
     }
 }

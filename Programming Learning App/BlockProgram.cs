@@ -39,9 +39,9 @@ public class BlockProgram
         Commands = commands;
     }
 
-    public ExecutionResult Execute()
+    public ExecutionResult Execute(Grid? grid = null)
     {
-        ExecutionContext context = new ExecutionContext();
+        ExecutionContext context = new ExecutionContext(grid);
 
         for (int i = 0; i < Commands.Count; i++)
         {

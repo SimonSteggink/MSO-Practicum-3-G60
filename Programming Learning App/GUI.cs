@@ -9,6 +9,11 @@ public class GUI : CommonUI
 {
     private MainViewModel viewModel = new MainViewModel();
 
+    public GUI()
+    {
+        grid = viewModel.worldGrid;
+    }
+
     [STAThread]
     public override void Run()
     {
