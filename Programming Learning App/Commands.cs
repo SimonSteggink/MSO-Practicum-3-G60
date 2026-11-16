@@ -18,7 +18,7 @@ public class MoveCommand : ICommand
     {
         for (int i = 0; i < Steps; i++)
         {
-            context.grid.MoveForward();
+            context.Grid.MoveForward();
 
             if (delay > 0)
             {
@@ -41,7 +41,7 @@ public class TurnCommand : ICommand
 
     public void Execute(ExecutionContext context, int delay = 0)
     {
-        context.grid.Turn(Turn);
+        context.Grid.Turn(Turn);
 
         if (Turn == TurnDirection.Left)
         {
@@ -98,14 +98,14 @@ public class RepeatUntilCommand : ICommand
         Body = commands;
     }
 
-    public void Execute(ExecutionContext context)
+    public void Execute(ExecutionContext context, int delay)
     {
         // Capped so a missing grid (condition always false) can't loop forever
         for (int i = 0; i < 1000 && !IsMet(context); i++)
         {
             for (int j = 0; j < Body.Count; j++)
             {
-                Body[j].Execute(context);
+                Body[j].Execute(context, delay);
             }
         }
     }
@@ -115,11 +115,11 @@ public class RepeatUntilCommand : ICommand
         Grid? grid = context.Grid;
         if (grid == null) { return false; }
 
-        Position next = context.Character.Position;
-        if (context.Character.Facing == Direction.North) { next.Y--; }
-        if (context.Character.Facing == Direction.East) { next.X++; }
-        if (context.Character.Facing == Direction.South) { next.Y++; }
-        if (context.Character.Facing == Direction.West) { next.X--; }
+        Position next = context.Grid.character.Position;
+        if (context.Grid.character.Facing == Direction.North) { next.Y--; }
+        if (context.Grid.character.Facing == Direction.East) { next.X++; }
+        if (context.Grid.character.Facing == Direction.South) { next.Y++; }
+        if (context.Grid.character.Facing == Direction.West) { next.X--; }
 
         bool inside = next.X >= 0 && next.X < grid.columns && next.Y >= 0 && next.Y < grid.rows;
 

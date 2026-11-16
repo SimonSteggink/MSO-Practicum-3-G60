@@ -4,14 +4,14 @@ namespace Programming_Learning_App;
 
 public class ExecutionContext
 {
-    public Grid? grid { get; }
+    public Grid? Grid { get; }
     public List<string> Trace { get; }
     public event Action<Grid> OnExecutionStateChanged;
 
     public ExecutionContext(Grid grid)
     {
-        this.grid = grid;
+        this.Grid = grid;
         Trace = new List<string>();
-        this.grid.OnGridStateChanged += (updatedGrid) => OnExecutionStateChanged?.Invoke(updatedGrid);
+        this.Grid.OnGridStateChanged += (updatedGrid) => OnExecutionStateChanged?.Invoke(updatedGrid);
     }
 }

@@ -52,8 +52,8 @@ public class BlockProgram
 
         ExecutionResult result = new ExecutionResult();
         result.Trace = context.Trace;
-        result.FinalPosition = context.grid.character.Position;
-        result.FinalFacing = context.grid.character.Facing;
+        result.FinalPosition = context.Grid.character.Position;
+        result.FinalFacing = context.Grid.character.Facing;
         return result;
     }
 }

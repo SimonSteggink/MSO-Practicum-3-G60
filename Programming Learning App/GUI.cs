@@ -19,11 +19,6 @@ public class GUI : CommonUI
         viewModel.WorldGrid = worldGrid;
     }
 
-    public GUI()
-    {
-        grid = viewModel.worldGrid;
-    }
-
     [STAThread]
     public override void Run()
     {
