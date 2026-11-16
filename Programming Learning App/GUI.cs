@@ -139,18 +139,7 @@ public class GUI : CommonUI
             UpdateViewModel();
         };
 
-        try
-        {
-            viewModel.OutputText = await Task.Run(() => Execute(500));
-        }
-        catch (IndexOutOfRangeException)
-        {
-            MessageBox.Show("The character left the grid.");
-        }
-        catch (InvalidOperationException e)
-        {
-            MessageBox.Show(e.Message);
-        }
+        viewModel.OutputText = await Task.Run(() => Execute(500));
     }
     private void MetricButtonClick()
     {
