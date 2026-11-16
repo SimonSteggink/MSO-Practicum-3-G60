@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Programming_Learning_App;
+namespace ProgrammingLearningApp;
 
 public interface IGridParser
 {

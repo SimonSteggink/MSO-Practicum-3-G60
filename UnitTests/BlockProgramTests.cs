@@ -1,5 +1,5 @@
 namespace UnitTests;
-using Programming_Learning_App;
+using ProgrammingLearningApp;
 
 public class BlockProgramTests
 {

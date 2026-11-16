@@ -10,11 +10,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Programming_Learning_App
+namespace ProgrammingLearningApp
 {
     public partial class Window1 : Window
     {
-        public event EventHandler<string> MessageSentToGui;
+        public event EventHandler<string>? MessageSentToGui;
 
         public Window1()
         {

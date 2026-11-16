@@ -1,12 +1,12 @@
 namespace UnitTests;
-using Programming_Learning_App;
+using ProgrammingLearningApp;
 
 public class CharacterTests
 {
     [Fact]
     public void Character_ShouldMoveEastByDefault()
     {
-        var character = new Programming_Learning_App.Character();
+        var character = new ProgrammingLearningApp.Character();
 
         character.MoveForward();
 
@@ -17,7 +17,7 @@ public class CharacterTests
     [Fact]
     public void Character_ShouldTurnLeftFromEastToNorth()
     {
-        var character = new Programming_Learning_App.Character();
+        var character = new ProgrammingLearningApp.Character();
 
         character.Turn(TurnDirection.Left);
 

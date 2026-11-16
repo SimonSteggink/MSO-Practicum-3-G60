@@ -1,4 +1,4 @@
-namespace Programming_Learning_App;
+namespace ProgrammingLearningApp;
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ public class MainViewModel : INotifyPropertyChanged
 {
     private string programText = "";
     private string outputText = "<output>";
-    public Grid worldGrid { get; set; }
+    private Grid worldGrid;
     public ObservableCollection<CellType> Cells { get; } = new();
 
     public MainViewModel(Grid grid) 
@@ -23,11 +23,11 @@ public class MainViewModel : INotifyPropertyChanged
     {
         Cells.Clear();
 
-        for (int i = 0; i < worldGrid.rows; i++)
+        for (int i = 0; i < worldGrid.Rows; i++)
         {
-            for (int j = 0; j < worldGrid.columns; j++)
+            for (int j = 0; j < worldGrid.Columns; j++)
             {
-                Cells.Add(worldGrid.grid[i, j]);
+                Cells.Add(worldGrid.Cells[i, j]);
             }
         }
     }

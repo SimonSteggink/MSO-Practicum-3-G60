@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Programming_Learning_App
+namespace ProgrammingLearningApp
 {
     public partial class App : Application
     {

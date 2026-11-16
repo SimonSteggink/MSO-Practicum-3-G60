@@ -1,11 +1,11 @@
-﻿namespace Programming_Learning_App;
+﻿namespace ProgrammingLearningApp;
 
 using System.IO;
 
 // Returns the text of example programs, so the UI can both show and parse it
 public class ExampleProgramProvider
 {
-    private Random rand;
+    private readonly Random rand;
 
     public ExampleProgramProvider()
     {

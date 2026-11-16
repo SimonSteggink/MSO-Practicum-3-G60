@@ -1,4 +1,4 @@
-﻿namespace Programming_Learning_App;
+﻿namespace ProgrammingLearningApp;
 
 public class Character
 {
@@ -53,24 +53,32 @@ public class Character
         }
     }
 
-    public void MoveForward() 
+    // The cell the character would step onto if it moved forward now
+    public Position NextPosition()
     {
-        switch (Facing) 
+        Position next = position;
+        switch (Facing)
         {
             case Direction.North:
-                position.Y--;
+                next.Y--;
                 break;
             case Direction.East:
-                position.X++;
+                next.X++;
                 break;
             case Direction.South:
-                position.Y++;
+                next.Y++;
                 break;
             case Direction.West:
-                position.X--;
+                next.X--;
                 break;
         }
 
+        return next;
+    }
+
+    public void MoveForward()
+    {
+        position = NextPosition();
         Path.Add(position);
     }
 }

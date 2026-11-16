@@ -1,4 +1,4 @@
-﻿namespace Programming_Learning_App;
+﻿namespace ProgrammingLearningApp;
 
 using System.IO;
 using System.Windows;
@@ -7,16 +7,16 @@ using System.Windows.Threading;
 
 public class GUI : CommonUI
 {
-    private MainViewModel viewModel;
+    private readonly MainViewModel viewModel;
 
     public GUI() 
     {
-        viewModel = new MainViewModel(worldGrid);
+        viewModel = new MainViewModel(WorldGrid);
     }
 
     public void UpdateViewModel() 
     {
-        viewModel.WorldGrid = worldGrid;
+        viewModel.WorldGrid = WorldGrid;
     }
 
     [STAThread]
@@ -69,15 +69,15 @@ public class GUI : CommonUI
     }
     private void BasicButtonClick()
     {
-        LoadProgram(examples.Basic());
+        LoadProgram(Examples.Basic());
     }
     private void AdvancedButtonClick()
     {
-        LoadProgram(examples.Advanced());
+        LoadProgram(Examples.Advanced());
     }
     private void ExpertButtonClick()
     {
-        LoadProgram(examples.Expert());
+        LoadProgram(Examples.Expert());
     }
     private void ProgramFileButtonClick(Window1 window)
     {
@@ -100,7 +100,7 @@ public class GUI : CommonUI
         try
         {
             LoadLevel(File.ReadAllText(fileName));
-            filePath = fileName;
+            FilePath = fileName;
         }
         catch (Exception e)
         {
@@ -110,32 +110,56 @@ public class GUI : CommonUI
 
     private async void RunButtonClick()
     {
-        current = parser.Parse(viewModel.ProgramText);
-        current.OnProgramStateChanged += async (latestGrid) =>
+        try
+        {
+            await RunProgram();
+        }
+        catch (Exception e)
+        {
+            // The program has already stopped; tell the user why
+            MessageBox.Show("The program was stopped: " + e.Message, "Program stopped", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    private async Task RunProgram()
+    {
+        Current = Parser.Parse(viewModel.ProgramText);
+        Current.OnProgramStateChanged += (latestGrid) =>
         {
             if (!Application.Current.Dispatcher.CheckAccess())
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    worldGrid = latestGrid;
+                    WorldGrid = latestGrid;
                     UpdateViewModel();
                 });
                 return;
             }
-            worldGrid = latestGrid;
+            WorldGrid = latestGrid;
             UpdateViewModel();
         };
 
-        viewModel.OutputText = await Task.Run(() => Execute(500));
+        try
+        {
+            viewModel.OutputText = await Task.Run(() => Execute(500));
+        }
+        catch (IndexOutOfRangeException)
+        {
+            MessageBox.Show("The character left the grid.");
+        }
+        catch (InvalidOperationException e)
+        {
+            MessageBox.Show(e.Message);
+        }
     }
     private void MetricButtonClick()
     {
-        current = parser.Parse(viewModel.ProgramText);
+        Current = Parser.Parse(viewModel.ProgramText);
 
         viewModel.OutputText = ShowMetrics();
     }
 
-    private string OpenDialog(Window1 window)
+    private static string OpenDialog(Window1 window)
     {
         OpenFileDialog dialog = new OpenFileDialog();
         dialog.Filter = "Program files (*.txt)|*.txt|All files (*.*)|*.*";
@@ -152,11 +176,11 @@ public class GUI : CommonUI
     private void LoadProgram(string text)
     {
         viewModel.ProgramText = text;
-        current = parser.Parse(text);
+        Current = Parser.Parse(text);
     }
     private void LoadLevel(string text)
     {
-        worldGrid = gridParser.Parse(text);
+        WorldGrid = GridParser.Parse(text);
         UpdateViewModel();
     }
 }

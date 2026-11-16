@@ -1,14 +1,14 @@
-﻿namespace Programming_Learning_App;
+﻿namespace ProgrammingLearningApp;
 
 
 public struct ProgramStats {
-    public int Commands;
-    public int MaxNesting;
-    public int Repeats;
+    public int Commands { get; set; }
+    public int MaxNesting { get; set; }
+    public int Repeats { get; set; }
 }
-public class StatsCalculator
+public static class StatsCalculator
 {
-    public ProgramStats Calculate(BlockProgram p) 
+    public static ProgramStats Calculate(BlockProgram p) 
     {
         ProgramStats stats = new ProgramStats();
         Visit(p.Commands, 0, ref stats);
@@ -16,7 +16,7 @@ public class StatsCalculator
     }
 
     // Walks the command tree, so commands inside repeat bodies are counted too
-    private void Visit(List<ICommand> commands, int depth, ref ProgramStats stats)
+    private static void Visit(List<ICommand> commands, int depth, ref ProgramStats stats)
     {
         foreach (ICommand command in commands)
         {

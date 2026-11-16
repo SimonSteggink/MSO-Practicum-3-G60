@@ -1,5 +1,5 @@
 namespace UnitTests;
-using Programming_Learning_App;
+using ProgrammingLearningApp;
 
 public class RepeatUntilTests
 {
@@ -24,7 +24,7 @@ public class RepeatUntilTests
     [Fact]
     public async Task RepeatUntil_GridEdge_StopsAtEdge()
     {
-        CellType[,] cells = new CellType[1, 3];
+        CellType[,] cells = { { CellType.Open, CellType.Open, CellType.Open } };
         var commands = new List<ICommand>
         {
             new RepeatUntilCommand(Condition.GridEdge, new List<ICommand> { new MoveCommand(1) })

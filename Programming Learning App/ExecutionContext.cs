@@ -1,12 +1,12 @@
 using System.Windows.Controls;
 
-namespace Programming_Learning_App;
+namespace ProgrammingLearningApp;
 
 public class ExecutionContext
 {
-    public Grid? Grid { get; }
+    public Grid Grid { get; }
     public List<string> Trace { get; }
-    public event Action<Grid> OnExecutionStateChanged;
+    public event Action<Grid>? OnExecutionStateChanged;
 
     public ExecutionContext(Grid grid)
     {

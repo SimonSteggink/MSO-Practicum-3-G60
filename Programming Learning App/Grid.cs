@@ -1,4 +1,4 @@
-﻿namespace Programming_Learning_App;
+﻿namespace ProgrammingLearningApp;
 
 public enum CellType {
     Blocked,
@@ -9,32 +9,42 @@ public enum CellType {
 
 public class Grid
 {
-    public int rows;
-    public int columns;
-    public CellType[,] grid;
-    public Character character = new Character();
-    public event Action<Grid> OnGridStateChanged;
+    public int Rows { get; }
+    public int Columns { get; }
+    public CellType[,] Cells { get; }
+    public Character Character { get; } = new Character();
+    public event Action<Grid>? OnGridStateChanged;
 
-    public Grid(int rows, int columns, CellType[,] grid) 
+    public Grid(int rows, int columns, CellType[,] cells)
     {
-        this.rows = rows;
-        this.columns = columns;
-        this.grid = grid;
+        Rows = rows;
+        Columns = columns;
+        Cells = cells;
     }
 
-    public void MoveForward() 
+    public void MoveForward()
     {
-        grid[character.Position.Y, character.Position.X] = CellType.Open;
+        Position next = Character.NextPosition();
+        if (next.X < 0 || next.X >= Columns || next.Y < 0 || next.Y >= Rows)
+        {
+            throw new InvalidOperationException("The character walked off the grid.");
+        }
+        if (Cells[next.Y, next.X] == CellType.Blocked)
+        {
+            throw new InvalidOperationException("The character walked into a blocked cell.");
+        }
 
-        character.MoveForward();
+        Cells[Character.Position.Y, Character.Position.X] = CellType.Open;
 
-        grid[character.Position.Y, character.Position.X] = CellType.Character;
+        Character.MoveForward();
+
+        Cells[Character.Position.Y, Character.Position.X] = CellType.Character;
 
         OnGridStateChanged?.Invoke(this);
     }
     public void Turn(TurnDirection turn)
     {
-        character.Turn(turn);
+        Character.Turn(turn);
 
         OnGridStateChanged?.Invoke(this);
     }

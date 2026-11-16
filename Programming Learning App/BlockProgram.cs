@@ -1,17 +1,17 @@
-﻿namespace Programming_Learning_App;
+﻿namespace ProgrammingLearningApp;
 
 
 public struct ExecutionResult
 {
-    public List<string> Trace;
-    public Position FinalPosition;
-    public Direction FinalFacing;
+    public List<string> Trace { get; set; }
+    public Position FinalPosition { get; set; }
+    public Direction FinalFacing { get; set; }
 }
 
 public struct Position
 {
-    public int X;
-    public int Y;
+    public int X { get; set; }
+    public int Y { get; set; }
 }
 
 public enum Direction
@@ -30,9 +30,9 @@ public enum TurnDirection
 
 public class BlockProgram
 {
-    public string Name;
-    public List<ICommand> Commands;
-    public event Action<Grid> OnProgramStateChanged;
+    public string Name { get; }
+    public List<ICommand> Commands { get; }
+    public event Action<Grid>? OnProgramStateChanged;
 
     public BlockProgram(string name, List<ICommand> commands) 
     {
@@ -40,7 +40,7 @@ public class BlockProgram
         Commands = commands;
     }
 
-    public async Task<ExecutionResult> Execute(Grid? grid = null, int delay = 0)
+    public async Task<ExecutionResult> Execute(Grid grid, int delay = 0)
     {
         ExecutionContext context = new ExecutionContext(grid);
         context.OnExecutionStateChanged += (updatedGrid) => OnProgramStateChanged?.Invoke(updatedGrid);
@@ -52,8 +52,8 @@ public class BlockProgram
 
         ExecutionResult result = new ExecutionResult();
         result.Trace = context.Trace;
-        result.FinalPosition = context.Grid.character.Position;
-        result.FinalFacing = context.Grid.character.Facing;
+        result.FinalPosition = context.Grid.Character.Position;
+        result.FinalFacing = context.Grid.Character.Facing;
         return result;
     }
 }

@@ -1,5 +1,5 @@
 ﻿namespace UnitTests;
-using Programming_Learning_App;
+using ProgrammingLearningApp;
 
 public class StatsCalculator
 {
@@ -14,7 +14,7 @@ public class StatsCalculator
         };
         var BlockProgram = new BlockProgram("Test1", commands);
 
-        var Stats = new Programming_Learning_App.StatsCalculator().Calculate(BlockProgram);
+        var Stats = ProgrammingLearningApp.StatsCalculator.Calculate(BlockProgram);
         Assert.Equal(4, Stats.Commands);
 
     }
@@ -30,7 +30,7 @@ public class StatsCalculator
         };
         var BlockProgram = new BlockProgram("Test1", commands);
 
-        var Stats = new Programming_Learning_App.StatsCalculator().Calculate(BlockProgram);
+        var Stats = ProgrammingLearningApp.StatsCalculator.Calculate(BlockProgram);
         Assert.Equal(4, Stats.Commands);
 
     }
@@ -45,7 +45,7 @@ public class StatsCalculator
             new RepeatCommand(2, new List<ICommand> { new RepeatCommand(2, new List<ICommand> { new MoveCommand(1) }) })
         };
         var BlockProgram = new BlockProgram("Test1", commands);
-        var Stats = new Programming_Learning_App.StatsCalculator().Calculate(BlockProgram);
+        var Stats = ProgrammingLearningApp.StatsCalculator.Calculate(BlockProgram);
         Assert.Equal(2, Stats.Repeats);
     }
 
@@ -59,7 +59,7 @@ public class StatsCalculator
             new RepeatCommand(2, new List<ICommand> { new RepeatCommand(2, new List<ICommand> { new MoveCommand(1) }) })
         };
         var BlockProgram = new BlockProgram("Test1", commands);
-        var Stats = new Programming_Learning_App.StatsCalculator().Calculate(BlockProgram);
+        var Stats = ProgrammingLearningApp.StatsCalculator.Calculate(BlockProgram);
         Assert.Equal(2, Stats.MaxNesting);
     }
 }

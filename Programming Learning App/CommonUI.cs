@@ -1,4 +1,4 @@
-﻿namespace Programming_Learning_App;
+﻿namespace ProgrammingLearningApp;
 
 using System.IO;
 using System.Windows;
@@ -6,35 +6,33 @@ using System.Windows.Controls;
 
 public abstract class CommonUI
 {
-    protected BlockProgram? current;
-    protected IProgramParser parser = new TextProgramParser();
-    protected IGridParser gridParser = new TextGridParser();
-    protected ExampleProgramProvider examples;
-    protected StatsCalculator stats = new StatsCalculator();
-    protected Grid worldGrid;
-    protected string filePath = "Test.txt";
+    protected BlockProgram? Current { get; set; }
+    protected IProgramParser Parser { get; } = new TextProgramParser();
+    protected IGridParser GridParser { get; } = new TextGridParser();
+    protected ExampleProgramProvider Examples { get; } = new ExampleProgramProvider();
+    protected Grid WorldGrid { get; set; }
+    protected string FilePath { get; set; } = "Test.txt";
 
     public CommonUI()
     {
-        examples = new ExampleProgramProvider();
-        InitiateGrid();
+        WorldGrid = LoadGrid();
     }
 
-    private void InitiateGrid() 
+    private Grid LoadGrid()
     {
-        string gridText = File.ReadAllText(filePath);
-        worldGrid = gridParser.Parse(gridText);
+        string gridText = File.ReadAllText(FilePath);
+        return GridParser.Parse(gridText);
     }
 
     public abstract void Run();
 
     protected async Task<string> Execute(int delay)
     {
-        if (current == null) { return ""; }
+        if (Current == null) { return ""; }
 
-        InitiateGrid();
+        WorldGrid = LoadGrid();
 
-        ExecutionResult result = await current!.Execute(worldGrid, delay);
+        ExecutionResult result = await Current!.Execute(WorldGrid, delay);
         string text = "";
         for (int i = 0; i < result.Trace.Count; i++)
         {
@@ -70,7 +68,7 @@ public abstract class CommonUI
 
     protected string ShowMetrics()
     {
-        ProgramStats result = stats.Calculate(current!);
+        ProgramStats result = StatsCalculator.Calculate(Current!);
         return "No. of commands: " + result.Commands + "\n" +
                "Max nesting: " + result.MaxNesting + "\n" +
                "No. of repeats: " + result.Repeats;

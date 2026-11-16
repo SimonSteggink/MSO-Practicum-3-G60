@@ -1,4 +1,4 @@
-namespace Programming_Learning_App;
+namespace ProgrammingLearningApp;
 
 using System.IO;
 using System.Windows;
@@ -7,7 +7,7 @@ public class ConsoleUI : CommonUI
 {
     public async override void Run()
     {
-        while (current == null)
+        while (Current == null)
         {
             Console.WriteLine("Choose a program:");
             Console.WriteLine("1. Basic example");
@@ -27,19 +27,19 @@ public class ConsoleUI : CommonUI
                 switch (input)
                 {
                     case "1":
-                        current = parser.Parse(examples.Basic());
+                        Current = Parser.Parse(Examples.Basic());
                         break;
                     case "2":
-                        current = parser.Parse(examples.Advanced());
+                        Current = Parser.Parse(Examples.Advanced());
                         break;
                     case "3":
-                        current = parser.Parse(examples.Expert());
+                        Current = Parser.Parse(Examples.Expert());
                         break;
                     case "4":
-                        current = parser.Parse(examples.Random());
+                        Current = Parser.Parse(Examples.Random());
                         break;
                     default:
-                        current = parser.Parse(File.ReadAllText(input.Trim().Trim('"')));
+                        Current = Parser.Parse(File.ReadAllText(input.Trim().Trim('"')));
                         break;
                 }
             }
@@ -62,7 +62,14 @@ public class ConsoleUI : CommonUI
             }
             else if (input == "1")
             {
-                Console.WriteLine(await Execute(0));
+                try
+                {
+                    Console.WriteLine(await Execute(0));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("The program was stopped: " + e.Message);
+                }
                 break;
             }
             else if (input == "2")

@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System.Globalization;
 
-namespace Programming_Learning_App;
+namespace ProgrammingLearningApp;
 
 public interface IProgramParser
 {
@@ -18,7 +18,7 @@ public class TextProgramParser : IProgramParser
         return new BlockProgram("Awesome", commands);
     }
 
-    public List<ICommand> ParseCommands(string[] text, ref int index, int minIndentation) 
+    public static List<ICommand> ParseCommands(string[] text, ref int index, int minIndentation) 
     {
         List<ICommand> commands = new List<ICommand>();
 
@@ -42,7 +42,7 @@ public class TextProgramParser : IProgramParser
 
             if (commandsText[0] == "Move")
             {
-                commands.Add(new MoveCommand(int.Parse(commandsText[1])));
+                commands.Add(new MoveCommand(int.Parse(commandsText[1], CultureInfo.InvariantCulture)));
             }
 
             else if (commandsText[0] == "Turn")
@@ -64,7 +64,7 @@ public class TextProgramParser : IProgramParser
 
             else if (commandsText[0] == "Repeat")
             {
-                int count = int.Parse(commandsText[1]);
+                int count = int.Parse(commandsText[1], CultureInfo.InvariantCulture);
 
                 List<ICommand> repeatCommands = ParseCommands(text, ref index, indentation + 1);
 

@@ -4,12 +4,13 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net10.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
-        <RootNamespace>Programming_Learning_App</RootNamespace>
+        <RootNamespace>ProgrammingLearningApp</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
+      <ApplicationDefinition Remove="App.xaml" />
       <Page Include="App.xaml" />
     </ItemGroup>
 
