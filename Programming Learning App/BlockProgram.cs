@@ -40,7 +40,7 @@ public class BlockProgram
         Commands = commands;
     }
 
-    public async Task<ExecutionResult> Execute(Grid grid, int delay = 0)
+    public async Task<ExecutionResult> Execute(Grid? grid = null, int delay = 0)
     {
         ExecutionContext context = new ExecutionContext(grid);
         context.OnExecutionStateChanged += (updatedGrid) => OnProgramStateChanged?.Invoke(updatedGrid);

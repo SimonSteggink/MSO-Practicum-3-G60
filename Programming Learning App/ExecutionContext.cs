@@ -4,7 +4,7 @@ namespace Programming_Learning_App;
 
 public class ExecutionContext
 {
-    public Grid grid { get; }
+    public Grid? grid { get; }
     public List<string> Trace { get; }
     public event Action<Grid> OnExecutionStateChanged;
 
