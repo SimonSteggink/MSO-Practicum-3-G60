@@ -19,4 +19,10 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Test.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

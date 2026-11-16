@@ -9,26 +9,19 @@ public class MainViewModel : INotifyPropertyChanged
 {
     private string programText = "";
     private string outputText = "<output>";
-    public Grid worldGrid { get; }
+    public Grid worldGrid { get; set; }
     public ObservableCollection<CellType> Cells { get; } = new();
 
-    public MainViewModel() 
+    public MainViewModel(Grid grid) 
     {
-        CellType[,] grid = new CellType[2,2];
-
-        grid[0, 0] = CellType.Blocked;
-        grid[0, 1] = CellType.Open;
-        grid[1, 0] = CellType.Blocked;
-        grid[1, 1] = CellType.Blocked;
-
-        worldGrid = new Grid(2, 2, grid);
+        worldGrid = grid;
 
         BuildCells();
     }
 
-    private void BuildCells() 
+    public void BuildCells() 
     {
-        ObservableCollection<CellType> Cellse = new();
+        Cells.Clear();
 
         for (int i = 0; i < worldGrid.rows; i++)
         {
@@ -58,6 +51,17 @@ public class MainViewModel : INotifyPropertyChanged
         {
             outputText = value;
             OnPropertyChanged();
+        }
+    }
+
+    public Grid WorldGrid 
+    {
+        get => worldGrid;
+        set 
+        {
+            worldGrid = value;
+            BuildCells();
+            OnPropertyChanged(nameof(WorldGrid));
         }
     }
 

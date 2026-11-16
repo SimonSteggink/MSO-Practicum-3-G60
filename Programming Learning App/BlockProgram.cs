@@ -32,6 +32,7 @@ public class BlockProgram
 {
     public string Name;
     public List<ICommand> Commands;
+    public event Action<Grid> OnProgramStateChanged;
 
     public BlockProgram(string name, List<ICommand> commands) 
     {
@@ -39,19 +40,20 @@ public class BlockProgram
         Commands = commands;
     }
 
-    public ExecutionResult Execute()
+    public async Task<ExecutionResult> Execute(Grid grid, int delay = 0)
     {
-        ExecutionContext context = new ExecutionContext();
+        ExecutionContext context = new ExecutionContext(grid);
+        context.OnExecutionStateChanged += (updatedGrid) => OnProgramStateChanged?.Invoke(updatedGrid);
 
         for (int i = 0; i < Commands.Count; i++)
         {
-            Commands[i].Execute(context);
+            Commands[i].Execute(context, delay);
         }
 
         ExecutionResult result = new ExecutionResult();
         result.Trace = context.Trace;
-        result.FinalPosition = context.Character.Position;
-        result.FinalFacing = context.Character.Facing;
+        result.FinalPosition = context.grid.character.Position;
+        result.FinalFacing = context.grid.character.Facing;
         return result;
     }
 }

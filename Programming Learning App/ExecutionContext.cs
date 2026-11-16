@@ -1,13 +1,17 @@
+using System.Windows.Controls;
+
 namespace Programming_Learning_App;
 
 public class ExecutionContext
 {
-    public Character Character { get; }
+    public Grid grid { get; }
     public List<string> Trace { get; }
+    public event Action<Grid> OnExecutionStateChanged;
 
-    public ExecutionContext()
+    public ExecutionContext(Grid grid)
     {
-        Character = new Character();
+        this.grid = grid;
         Trace = new List<string>();
+        this.grid.OnGridStateChanged += (updatedGrid) => OnExecutionStateChanged?.Invoke(updatedGrid);
     }
 }

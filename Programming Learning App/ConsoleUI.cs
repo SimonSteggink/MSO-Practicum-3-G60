@@ -5,7 +5,7 @@ using System.Windows;
 
 public class ConsoleUI : CommonUI
 {
-    public override void Run()
+    public async override void Run()
     {
         while (current == null)
         {
@@ -62,7 +62,7 @@ public class ConsoleUI : CommonUI
             }
             else if (input == "1")
             {
-                Console.WriteLine(Execute());
+                Console.WriteLine(await Execute(0));
                 break;
             }
             else if (input == "2")

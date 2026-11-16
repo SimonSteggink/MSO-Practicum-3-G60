@@ -2,7 +2,7 @@ namespace Programming_Learning_App;
 
 public interface ICommand
 {
-    public void Execute(ExecutionContext context);
+    public void Execute(ExecutionContext context, int delay = 0);
 }
 
 public class MoveCommand : ICommand
@@ -14,11 +14,16 @@ public class MoveCommand : ICommand
         Steps = steps;
     }
 
-    public void Execute(ExecutionContext context)
+    public void Execute(ExecutionContext context, int delay = 0)
     {
         for (int i = 0; i < Steps; i++)
         {
-            context.Character.MoveForward();
+            context.grid.MoveForward();
+
+            if (delay > 0)
+            {
+                Thread.Sleep(delay);
+            }
         }
 
         context.Trace.Add("Move " + Steps);
@@ -34,9 +39,9 @@ public class TurnCommand : ICommand
         Turn = turn;
     }
 
-    public void Execute(ExecutionContext context)
+    public void Execute(ExecutionContext context, int delay = 0)
     {
-        context.Character.Turn(Turn);
+        context.grid.Turn(Turn);
 
         if (Turn == TurnDirection.Left)
         {
@@ -45,6 +50,11 @@ public class TurnCommand : ICommand
         else
         {
             context.Trace.Add("Turn right");
+        }
+
+        if (delay > 0)
+        {
+            Thread.Sleep(delay);
         }
     }
 }
@@ -60,13 +70,13 @@ public class RepeatCommand : ICommand
         Body = commands;
     }
 
-    public void Execute(ExecutionContext context)
+    public void Execute(ExecutionContext context, int delay = 0)
     {
         for (int i = 0; i < Times; i++)
         {
             for (int j = 0; j < Body.Count; j++)
             {
-                Body[j].Execute(context);
+                Body[j].Execute(context, delay);
             }
         }
     }
@@ -88,12 +98,14 @@ public class RepeatUntilCommand : ICommand
         Body = commands;
     }
 
-    public void Execute(ExecutionContext context)
+    public void Execute(ExecutionContext context, int delay = 0)
     {
-        // TODO: Condition checking
-        for (int j = 0; j < Body.Count; j++)
+        while (context.grid.CheckCondition(condition)) 
         {
-            Body[j].Execute(context);
+            for (int j = 0; j < Body.Count; j++)
+            {
+                Body[j].Execute(context, delay);
+            }
         }
     }
 }

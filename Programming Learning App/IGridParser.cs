@@ -37,6 +37,8 @@ public class TextGridParser : IGridParser
             }
         }
 
+        grid[0, 0] = CellType.Character;
+
         return new Grid(rows, cols, grid);
     }
 }

@@ -7,7 +7,17 @@ using System.Windows.Threading;
 
 public class GUI : CommonUI
 {
-    private MainViewModel viewModel = new MainViewModel();
+    private MainViewModel viewModel;
+
+    public GUI() 
+    {
+        viewModel = new MainViewModel(worldGrid);
+    }
+
+    public void UpdateViewModel() 
+    {
+        viewModel.WorldGrid = worldGrid;
+    }
 
     [STAThread]
     public override void Run()
@@ -84,12 +94,30 @@ public class GUI : CommonUI
             viewModel.OutputText = "Could not load program: " + e.Message;
         }
     }
-    private void RunButtonClick()
+    private async void RunButtonClick()
     {
-        viewModel.OutputText = Execute();
+        current = parser.Parse(viewModel.ProgramText);
+        current.OnProgramStateChanged += async (latestGrid) =>
+        {
+            if (!Application.Current.Dispatcher.CheckAccess())
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    worldGrid = latestGrid;
+                    UpdateViewModel();
+                });
+                return;
+            }
+            worldGrid = latestGrid;
+            UpdateViewModel();
+        };
+
+        viewModel.OutputText = await Task.Run(() => Execute(500));
     }
     private void MetricButtonClick()
     {
+        current = parser.Parse(viewModel.ProgramText);
+
         viewModel.OutputText = ShowMetrics();
     }
 

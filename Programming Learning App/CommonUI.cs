@@ -2,26 +2,38 @@
 
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 
 public abstract class CommonUI
 {
     protected BlockProgram? current;
     protected IProgramParser parser = new TextProgramParser();
+    protected IGridParser gridParser = new TextGridParser();
     protected ExampleProgramProvider examples;
     protected StatsCalculator stats = new StatsCalculator();
+    protected Grid worldGrid;
 
     public CommonUI()
     {
         examples = new ExampleProgramProvider();
+        InitiateGrid();
+    }
+
+    private void InitiateGrid() 
+    {
+        string gridText = File.ReadAllText("Test.txt");
+        worldGrid = gridParser.Parse(gridText);
     }
 
     public abstract void Run();
 
-    protected string Execute()
+    protected async Task<string> Execute(int delay)
     {
         if (current == null) { return ""; }
 
-        ExecutionResult result = current!.Execute();
+        InitiateGrid();
+
+        ExecutionResult result = await current!.Execute(worldGrid, delay);
         string text = "";
         for (int i = 0; i < result.Trace.Count; i++)
         {
