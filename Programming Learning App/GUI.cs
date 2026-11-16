@@ -42,9 +42,13 @@ public class GUI : CommonUI
                 {
                     ExpertButtonClick();
                 }
-                else if (command == "LOAD_FILE")
+                else if (command == "LOAD_FILE_PROGRAM")
                 {
-                    FileButtonClick(window);
+                    ProgramFileButtonClick(window);
+                }
+                else if (command == "LOAD_FILE_LEVEL")
+                {
+                    LevelFileButtonClick(window);
                 }
                 else if (command == "RUN")
                 {
@@ -75,25 +79,35 @@ public class GUI : CommonUI
     {
         LoadProgram(examples.Expert());
     }
-    private void FileButtonClick(Window1 window)
+    private void ProgramFileButtonClick(Window1 window)
     {
-        OpenFileDialog dialog = new OpenFileDialog();
-        dialog.Filter = "Program files (*.txt)|*.txt|All files (*.*)|*.*";
-
-        if (dialog.ShowDialog(window) != true)
-        {
-            return;
-        }
+        string fileName = OpenDialog(window);
 
         try
         {
-            LoadProgram(File.ReadAllText(dialog.FileName));
+            LoadProgram(File.ReadAllText(fileName));
         }
         catch (Exception e)
         {
             viewModel.OutputText = "Could not load program: " + e.Message;
         }
     }
+
+    private void LevelFileButtonClick(Window1 window)
+    {
+        string fileName = OpenDialog(window);
+
+        try
+        {
+            LoadLevel(File.ReadAllText(fileName));
+            filePath = fileName;
+        }
+        catch (Exception e)
+        {
+            viewModel.OutputText = "Could not load Level: " + e.Message;
+        }
+    }
+
     private async void RunButtonClick()
     {
         current = parser.Parse(viewModel.ProgramText);
@@ -121,10 +135,28 @@ public class GUI : CommonUI
         viewModel.OutputText = ShowMetrics();
     }
 
+    private string OpenDialog(Window1 window)
+    {
+        OpenFileDialog dialog = new OpenFileDialog();
+        dialog.Filter = "Program files (*.txt)|*.txt|All files (*.*)|*.*";
+
+        if (dialog.ShowDialog(window) != true)
+        {
+            return "";
+        }
+
+        return dialog.FileName;
+    }
+
     // Shows the program text in the editor and parses it into the current program
     private void LoadProgram(string text)
     {
         viewModel.ProgramText = text;
         current = parser.Parse(text);
+    }
+    private void LoadLevel(string text)
+    {
+        worldGrid = gridParser.Parse(text);
+        UpdateViewModel();
     }
 }

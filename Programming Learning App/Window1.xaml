@@ -14,16 +14,18 @@ Title="Window1" Height="450" Width="800" >
         <RowDefinition Height="80"/>
     </Grid.RowDefinitions >
 
-    <StackPanel Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,15" >
-        <Menu Background="#007ACC" >
-            <MenuItem Header="Load program" Background="#007ACC" Foreground="White" Padding="10,6" FontSize="14" >
-                <MenuItem Header="Basic" Foreground="Black" Click="BasicButtonClick"/>
-                <MenuItem Header="Advanced" Foreground="Black" Click="AdvancedButtonClick"/>
-                <MenuItem Header="Expert" Foreground="Black" Click="ExpertButtonClick"/>
-                <Separator/>
-                <MenuItem Header="From file..." Foreground="Black" Click="FileButtonClick"/>
-            </MenuItem >
-        </Menu >
+        <StackPanel Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,15" Orientation="Horizontal">
+            <Menu Background="#007ACC" Margin="0,0,10,0" >
+                <MenuItem Header="Load program" Background="#007ACC" Foreground="White" Padding="10,6" FontSize="14" >
+                    <MenuItem Header="Basic" Foreground="Black" Click="BasicButtonClick"/>
+                    <MenuItem Header="Advanced" Foreground="Black" Click="AdvancedButtonClick"/>
+                    <MenuItem Header="Expert" Foreground="Black" Click="ExpertButtonClick"/>
+                    <Separator/>
+                    <MenuItem Header="From file..." Foreground="Black" Click="ProgramFileButtonClick"/>
+                </MenuItem >
+            </Menu >
+
+            <Button Content="Load level" Background="#007ACC" Foreground="White" Padding="10,6" FontSize="14" Click="LevelFileButtonClick"/>
     </StackPanel >
 
     <UniformGrid Grid.Row="1" Rows="1" Columns="2" >

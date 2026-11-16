@@ -12,6 +12,7 @@ public abstract class CommonUI
     protected ExampleProgramProvider examples;
     protected StatsCalculator stats = new StatsCalculator();
     protected Grid worldGrid;
+    protected string filePath = "Test.txt";
 
     public CommonUI()
     {
@@ -21,7 +22,7 @@ public abstract class CommonUI
 
     private void InitiateGrid() 
     {
-        string gridText = File.ReadAllText("Test.txt");
+        string gridText = File.ReadAllText(filePath);
         worldGrid = gridParser.Parse(gridText);
     }
 

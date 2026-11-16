@@ -36,9 +36,14 @@ namespace Programming_Learning_App
             MessageSentToGui?.Invoke(this, "LOAD_EXPERT");
         }
 
-        private void FileButtonClick(object sender, RoutedEventArgs e)
+        private void ProgramFileButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageSentToGui?.Invoke(this, "LOAD_FILE");
+            MessageSentToGui?.Invoke(this, "LOAD_FILE_PROGRAM");
+        }
+
+        private void LevelFileButtonClick(object sender, RoutedEventArgs e)
+        {
+            MessageSentToGui?.Invoke(this, "LOAD_FILE_LEVEL");
         }
 
         private void RunButtonClick(object sender, RoutedEventArgs e)
